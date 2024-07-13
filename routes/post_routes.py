@@ -15,8 +15,8 @@ def get_thread_posts(thread_id: str, db: Session = Depends(get_session)):
     return get_thread_posts(thread_id, db)
 
 @router.put("/update/{post_id}")
-def update(post: UpdatePost, db: Session = Depends(get_session)):
-    return update_post(post, db)
+def update(post_id: str, post: UpdatePost, db: Session = Depends(get_session)):
+    return update_post(post_id, post, db)
 
 @router.delete("/delete/{post_id}")
 def delete(post_id: str, db: Session = Depends(get_session)):

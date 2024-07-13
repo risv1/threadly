@@ -39,8 +39,8 @@ def get_thread_posts(thread_id: str, db: Session):
     
     return { "message": "Posts found", "posts": find_posts }
 
-def update_post(post: UpdatePost, db: Session):
-    find_post = db.query(Posts).filter(Posts.id == post.id).first()
+def update_post(post_id: str, post: UpdatePost, db: Session):
+    find_post = db.query(Posts).filter(Posts.id == post_id).first()
     if not find_post:
         raise HTTPException(status_code=404, detail="Post not found")
     
