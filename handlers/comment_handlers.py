@@ -7,8 +7,6 @@ from models.comments import NewComment, UpdateComment
 from database.schema import Comments
 from utils.jwt_utils import decode_jwt_token
 
-from models.comments import Comment
-
 def create_comment(comment: NewComment, db: Session, req: Request):
     token = req.cookies.get("token")
     token_data = decode_jwt_token(token)

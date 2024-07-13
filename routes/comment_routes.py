@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 from models.comments import NewComment, UpdateComment
-from database.schema import Comments
 from database.db import get_session
 from handlers.comment_handlers import create_comment, get_post_comments, update_comment, delete_comment
 
