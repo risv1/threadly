@@ -35,7 +35,7 @@ def update_profile(user: UpdateUser, db: Session, req: Request):
     
     return { "message": "User updated successfully", "user": find_user }
 
-def delete_profile(user_id: str, db: Session, req: Request):
+def delete_profile(db: Session, req: Request):
     token = req.cookies.get("token")
     token_data = decode_jwt_token(token)
     user_id = token_data["user_id"]
