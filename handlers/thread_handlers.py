@@ -24,7 +24,7 @@ def create_thread(thread: NewThread, db: Session, req: Request):
     db.commit()
     db.refresh(new_thread)
 
-    return JSONResponse(content={"message": "Thread created successfully"}, status_code=201)
+    return { "message": "Thread created successfully", "thread": new_thread }
 
 def get_all_threads(db: Session):
     all_threads = db.query(Threads).all()
@@ -67,4 +67,4 @@ def delete_thread(thread_id: str, db: Session):
     db.delete(find_thread)
     db.commit()
 
-    return JSONResponse(content={"message": "Thread deleted successfully"}, status_code=200)
+    return { "message": "Thread deleted successfully" }
