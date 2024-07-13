@@ -3,11 +3,16 @@ import uvicorn
 from routes import auth_routes, post_routes, thread_routes, user_routes, comment_routes
 from dotenv import load_dotenv
 from os import getenv
+from middlewares.cors_middleware import apply_cors_middleware
+from middlewares.auth_middleware import AuthMiddleware
 
 load_dotenv()
 port = getenv("PORT")
 
 app = FastAPI()
+
+app = apply_cors_middleware(app)
+app.add_middleware(AuthMiddleware)
 
 app.include_router(auth_routes.router, prefix="/auth", tags=["auth"])
 app.include_router(user_routes.router, prefix="/users", tags=["users"])
