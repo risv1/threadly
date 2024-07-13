@@ -15,8 +15,8 @@ def get_comments(post_id: str, db: Session = Depends(get_session)):
     return get_post_comments(post_id, db)
 
 @router.put("/update/{comment_id}")
-def update(comment: UpdateComment, db: Session = Depends(get_session)):
-    return update_comment(comment, db)
+def update(comment: UpdateComment, db: Session = Depends(get_session), req: Request = Request):
+    return update_comment(comment, db, req)
 
 @router.delete("/delete/{comment_id}")
 def delete(comment_id: str, db: Session = Depends(get_session)):

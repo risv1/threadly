@@ -43,11 +43,18 @@ def get_thread_by_id(thread_id: str, db: Session):
     
     return { "thread": thread, "message": "Thread found" }
 
-def update_thread(thread_id: str, thread: UpdateThread, db: Session):
+def update_thread(thread_id: str, thread: UpdateThread, db: Session, req: Request):
+    token = req.cookies.get("token")
+    token_data = decode_jwt_token(token)
+    user_id = str(token_data["user_id"])
+
     find_thread = db.query(Threads).filter(Threads.id == thread_id).first()
     if not find_thread:
         raise HTTPException(status_code=404, detail="Thread not found")
     
+    if find_thread.owner_id != user_id:
+        raise HTTPException(status_code=403, detail="You are not authorized to update this thread")
+
     if thread.title:
         find_thread.title = thread.title
     if thread.content:

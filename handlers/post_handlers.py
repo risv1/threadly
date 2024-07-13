@@ -39,11 +39,18 @@ def get_thread_posts(thread_id: str, db: Session):
     
     return { "message": "Posts found", "posts": find_posts }
 
-def update_post(post_id: str, post: UpdatePost, db: Session):
+def update_post(post_id: str, post: UpdatePost, db: Session, req: Request):
+    token = req.cookies.get("token")
+    token_data = decode_jwt_token(token)
+    user_id = str(token_data["user_id"])
+
     find_post = db.query(Posts).filter(Posts.id == post_id).first()
     if not find_post:
         raise HTTPException(status_code=404, detail="Post not found")
     
+    if find_post.owner_id != user_id:
+        raise HTTPException(status_code=403, detail="You are not authorized to update this post")
+
     if post.content:
         find_post.content = post.content
     if post.thread_id:

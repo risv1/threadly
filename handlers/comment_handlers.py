@@ -37,10 +37,17 @@ def get_post_comments(db: Session):
     return { "comments": all_comments }
     
 
-def update_comment(comment_id: str, comment: UpdateComment, db: Session):
+def update_comment(comment_id: str, comment: UpdateComment, db: Session, req: Request):
+    token = req.cookies.get("token")
+    token_data = decode_jwt_token(token)
+    user_id = str(token_data["user_id"])
+
     find_comment = db.query(Comments).filter(Comments.id == comment_id).first()
     if not find_comment:
         raise HTTPException(status_code=404, detail="Comment not found")
+
+    if find_comment.owner_id != user_id:
+        raise HTTPException(status_code=403, detail="You are not authorized to update this comment")
 
     if not comment.content:
         raise HTTPException(status_code=400, detail="Content is required")
