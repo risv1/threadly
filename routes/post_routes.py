@@ -9,7 +9,7 @@ def create(post: Post):
     return create_post(post)
 
 @router.get("/thread/{thread_id}")
-def get_thread(thread_id: str):
+def get_thread_posts(thread_id: str):
     return get_thread_posts(thread_id)
 
 @router.put("/update/{post_id}")

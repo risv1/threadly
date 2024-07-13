@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from typing import Optional
 
-class Thread(BaseModel):
-    id: str
+class NewThread(BaseModel):
     title: str
     content: str
-    owner_id: str
-    created_at: str
-    updated_at: str
+
+class UpdateThread(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
