@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from models.posts import Post
-from handlers.post_handlers import create_post, get_all_posts, get_post, update_post, delete_post
+from handlers.post_handlers import create_post, update_post, delete_post, get_thread_posts
 
 router = APIRouter()
 
@@ -8,13 +8,9 @@ router = APIRouter()
 def create(post: Post):
     return create_post(post)
 
-@router.get("/all")
-def get_all():
-    return get_all_posts()
-
-@router.get("/{post_id}")
-def get_by_id(post_id: str):
-    return get_post(post_id)
+@router.get("/thread/{thread_id}")
+def get_thread(thread_id: str):
+    return get_thread_posts(thread_id)
 
 @router.put("/update/{post_id}")
 def update(post: Post):

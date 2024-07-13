@@ -1,7 +1,7 @@
-Generic single-database configuration.
+# Generic single-database configuration.
 
 ## Migrations
-alembic revision --autogenerate -m "Initial migration"
+alembic revision --autogenerate -m "your_migration_message"
 
 ## Upgrade
 alembic upgrade head

@@ -1,11 +1,10 @@
 from fastapi import HTTPException
-from models.users import User
 
-def get_profile(user: User):
-    return user
+def get_profile():
+    return "profile"
 
-def update_profile(user: User):
-    return user
+def update_profile():
+    return "profile"
 
-def delete_profile(user: User):
-    return user
+def delete_profile():
+    return "profile"
